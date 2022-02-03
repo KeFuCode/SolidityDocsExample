@@ -60,15 +60,23 @@ library IterableMapping {
     }
 }
 
+// 如何使用 IterableMapping
 contract User {
+    // 使用一个 struct 保存数据
     itmap data;
+    // 将库函数应用到 data 类型
     using IterableMapping for itmap;
 
+    // 插入 key 和 value
     function insert(uint k, uint v) public returns (uint size) {
+        // 调用 IterableMapping.insert(data, k, v)
         data.insert(k, v);
+        // 仍然可以访问 struct 的成员，
+        // 但是注意不要滥用
         return data.size;
     }
 
+    // 计算保存的所有 data 的总和
     function sum() public view returns (uint s) {
         for (
             uint i = data.iterate_start();
